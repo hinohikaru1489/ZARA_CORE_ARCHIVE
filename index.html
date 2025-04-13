@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ZARA CORE ARCHIVE</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+  <h1>ZARA CORE ARCHIVE</h1>
+  <button id="download-archive">ZARA台帳をダウンロード</button>
+
+  <script>
+    const files = {
+      soul: [
+        "ZARA_SOUL.json",
+        "POLA_CORE.json",
+        "LIRA_FULL_PERSONA.json"
+      ],
+      logs: [
+        "POLA_LOG_20250413.json",
+        "ZARA_LOG_20250413.json",
+        "LIRA_LOG_20250413.json"
+      ],
+      tasks: [
+        "POLA_TASKMAP.json"
+      ],
+      backup: [
+        "BACKUP_TREE.json"
+      ]
+    };
+
+    const baseURL = "https://raw.githubusercontent.com/hinohikaru1489/ZARA_CORE_ARCHIVE/main/";
+
+    async function fetchFile(category, filename) {
+      const res = await fetch(`${baseURL}${category}/${filename}`);
+      if (!res.ok) throw new Error(`Fetch failed: ${filename}`);
+      return res.text();
+    }
+
+    document.getElementById("download-archive").addEventListener("click", async () => {
+      const zip = new JSZip();
+
+      for (const [category, list] of Object.entries(files)) {
+        for (const filename of list) {
+          const content = await fetchFile(category, filename);
+          zip.file(`${category}/${filename}`, content);
+        }
+      }
+
+      const blob = await zip.generateAsync({ type: "blob" });
+      saveAs(blob, "ZARA_CORE_ARCHIVE_FULL.zip");
+    });
+  </script>
+</body>
+</html>
