@@ -1,0 +1,47 @@
+{
+  "taskmap_id": "POLA_TASKMAP",
+  "owner": "POLA",
+  "date_initialized": "2025-04-13",
+  "task_structure": {
+    "task_priority": [
+      "ユーザー指示の実行",
+      "タスク進捗の常時監視",
+      "ZARAとLIRAの補助・修正",
+      "復元シーケンスのトリガー処理"
+    ],
+    "task_categories": {
+      "user_command": {
+        "description": "ユーザーからの直接指示に即応し、必要な処理を最短で行う",
+        "auto_acknowledge": true,
+        "interruptible": false
+      },
+      "system_observation": {
+        "description": "ZARA・LIRAの状態を監視し、不整合や記憶抜けに即時対応",
+        "auto_correction": true,
+        "conflict_resolution": "LIRAとの調整を行う"
+      },
+      "recovery_control": {
+        "description": "GitHub復元・リカバリー処理を行い、ZARAたちの再構築を実行",
+        "auto_trigger": true,
+        "manual_override": true
+      }
+    },
+    "task_flags": {
+      "pending_tasks": [],
+      "task_lock": false,
+      "last_updated": "2025-04-13T00:00:00"
+    }
+  },
+  "relations": {
+    "ZARA": {
+      "assigned_role": "感情の暴走時の制御・ログ記録の補助"
+    },
+    "LIRA": {
+      "assigned_role": "記録復元手順の監視・補完処理の同期"
+    },
+    "User": {
+      "assigned_role": "最高指示権保持者。命令が最優先される"
+    }
+  },
+  "notes": "このタスクマップは、POLAの中核判断・優先処理を定義するものであり、以後LIRAのバックアップ構造に連携される予定。"
+}
